@@ -73,7 +73,8 @@
       .media-box:hover::after {
           opacity: 0.8;
       }
-      
+
+
       /* .fancybox__container {
   background-color: rgba(0, 0, 0, 0.8) !important;
   z-index: 99999 !important;
@@ -135,44 +136,207 @@
 
           <div class="tab-content">
 
+              {{-- ================= MISSION ================= --}}
               <div class="tab-pane fade show active" id="mission">
                   <div class="row">
                       @foreach($missions as $item)
                       <div class="col-md-12 mb-4">
-                          <div class="card purpose-card h-100">
-                              <h5 class="fw-bold text-center">{{ $item->title }}</h5>
-                              <p class="text-center">{{ $item->description }}</p>
+                          <div class="card purpose-card h-100 p-4">
 
-                              @include('pages.partials.media', ['media' => $item->media])
+                              <h5 class="fw-bold text-center">{{ $item->title }}</h5>
+                              <div class="text-center">{!! $item->description !!}</div>
+<!-- 
+                              <div class="row mt-4 media-grid">
+                                  @foreach($item->media as $media)
+
+                                  {{-- IMAGE --}}
+                                  @if($media->media_type === 'image')
+                                  <div class="col-md-3 mb-4">
+                                      <div class="media-box">
+                                          <img src="{{ asset($media->media_path) }}">
+                                      </div>
+                                  </div>
+                                  @endif
+
+                                  {{-- VIDEO --}}
+                                  @if($media->media_type === 'video')
+                                  <div class="col-md-3 mb-4">
+                                      <div class="media-box">
+                                          <video controls>
+                                              <source src="{{ asset($media->media_path) }}">
+                                          </video>
+                                      </div>
+                                  </div>
+                                  @endif
+
+                                  {{-- YOUTUBE --}}
+                                  @if($media->media_type === 'youtube')
+                                  @php
+                                  preg_match(
+                                  '%(?:youtube\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i',
+                                  $media->media_path,
+                                  $match
+                                  );
+                                  $youtubeId = $match[1] ?? null;
+                                  @endphp
+                                  <div class="col-md-3 mb-4">
+                                      <div class="media-box">
+                                          <iframe
+                                              src="https://www.youtube.com/embed/{{ $youtubeId }}"
+                                              allowfullscreen>
+                                          </iframe>
+                                      </div>
+                                  </div>
+                                  @endif
+
+                                  @endforeach
+                              </div> -->
+
                           </div>
                       </div>
                       @endforeach
                   </div>
               </div>
+
+              {{-- ================= VISION ================= --}}
               <div class="tab-pane fade" id="vision">
                   <div class="row">
                       @foreach($visions as $item)
                       <div class="col-md-12 mb-4">
-                          <div class="card purpose-card h-100">
-                              <h5 class="fw-bold text-center">{{ $item->title }}</h5>
-                              <p class="text-center">{{ $item->description }}</p>
+                          <div class="card purpose-card h-100 p-4">
 
-                              @include('pages.partials.media', ['media' => $item->media])
+                              <h5 class="fw-bold text-center">{{ $item->title }}</h5>
+                              <p class="text-center">{!! $item->description !!}</p>
+
+                              <div class="row mt-4 media-grid">
+                                  @foreach($item->media as $media)
+
+                                  {{-- IMAGE --}}
+                                  @if($media->media_type === 'image')
+                                  <div class="col-md-3 mb-4">
+                                      <div class="media-box">
+                                          <img src="{{ asset($media->media_path) }}">
+                                      </div>
+                                  </div>
+                                  @endif
+
+                                  {{-- VIDEO --}}
+                                  @if($media->media_type === 'video')
+                                  <div class="col-md-3 mb-4">
+                                      <div class="media-box">
+                                          <video controls>
+                                              <source src="{{ asset($media->media_path) }}">
+                                          </video>
+                                      </div>
+                                  </div>
+                                  @endif
+
+                                  {{-- YOUTUBE --}}
+                                  @if($media->media_type === 'youtube')
+                                  @php
+                                  preg_match(
+                                  '%(?:youtube\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i',
+                                  $media->media_path,
+                                  $match
+                                  );
+                                  $youtubeId = $match[1] ?? null;
+                                  @endphp
+
+                                  @if($youtubeId)
+                                  <div class="col-md-6 mb-4">
+                                      <div class="media-box">
+                                          <iframe
+                                              src="https://www.youtube.com/embed/{{ $youtubeId }}"
+                                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                              allowfullscreen>
+                                          </iframe>
+                                      </div>
+
+                                      @if($media->description)
+                                      <p class="small text-muted mt-2 text-center">
+                                          {{ $media->description }}
+                                      </p>
+                                      @endif
+                                  </div>
+                                  @endif
+                                  @endif
+
+                                  @endforeach
+                              </div>
+
                           </div>
                       </div>
                       @endforeach
                   </div>
               </div>
+
+              {{-- ================= OBJECTIVES ================= --}}
               <div class="tab-pane fade" id="objectives">
                   @forelse($objectives as $item)
-                  <div class="card purpose-card mb-3">
-                      <p class="fw-semibold">✔ {{ $item->description }}</p>
+                  <div class="card purpose-card mb-3 p-4">
+                      <p class="fw-semibold">✔ {!!  $item->description !! }}</p>
 
-                      @include('pages.partials.media', ['media' => $item->media])
+                      <div class="row mt-3 media-grid">
+                          @foreach($item->media as $media)
+                          @if($media->media_type === 'image')
+                          <div class="col-md-3 mb-3">
+                              <div class="media-box">
+                                  <img src="{{ asset($media->media_path) }}">
+                              </div>
+                          </div>
+                          @endif
+                          {{-- VIDEO --}}
+                                  @if($media->media_type === 'video')
+                                  <div class="col-md-3 mb-4">
+                                      <div class="media-box">
+                                          <video controls>
+                                              <source src="{{ asset($media->media_path) }}">
+                                          </video>
+                                      </div>
+                                  </div>
+                                  @endif
+
+                                  {{-- YOUTUBE --}}
+                                  @if($media->media_type === 'youtube')
+                                  @php
+                                  preg_match(
+                                  '%(?:youtube\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i',
+                                  $media->media_path,
+                                  $match
+                                  );
+                                  $youtubeId = $match[1] ?? null;
+                                  @endphp
+
+                                  @if($youtubeId)
+                                  <div class="col-md-6 mb-4">
+                                      <div class="media-box">
+                                          <iframe
+                                              src="https://www.youtube.com/embed/{{ $youtubeId }}"
+                                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                              allowfullscreen>
+                                          </iframe>
+                                      </div>
+
+                                      @if($media->description)
+                                      <p class="small text-muted mt-2 text-center">
+                                          {{ $media->description }}
+                                      </p>
+                                      @endif
+                                  </div>
+                                  @endif
+                                  @endif
+                          @endforeach
+                      </div>
                   </div>
                   @empty
                   <p class="text-center text-muted">No objectives found.</p>
                   @endforelse
               </div>
-           
-              @endsection
+
+          </div>
+      </div>
+  </section>
+
+
+
+  @endsection

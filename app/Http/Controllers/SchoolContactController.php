@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\School;
-use App\Models\SchoolContact;
 use Illuminate\Http\Request;
+use App\Models\SchoolContact;
+use App\Mail\SchoolEnquiryMail;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class SchoolContactController extends Controller
 {
@@ -12,35 +15,38 @@ class SchoolContactController extends Controller
     {
         $school = School::where('slug', $slug)->firstOrFail();
 
+        // ✅ Validation outside try-catch so ValidationException is handled automatically
+        $validated = $request->validate([
+            'name'        => 'required|string|max:255',
+            'phone'       => 'required|string|max:20',
+            'email'       => 'required|email|max:255',
+            'institution' => 'required|string|max:255',
+            'branch'      => 'required|string|max:255',
+            'message'     => 'required|string',
+        ]);
+
+        $validated['school_id'] = $school->id;
+
         try {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'phone' => 'required|string|max:20',
-                'email' => 'required|email|max:255',
-                'institution' => 'required|string|max:255',
-                'branch' => 'required|string|max:255',
-                'message' => 'required|string',
-            ]);
+            // Save the enquiry
+            $enquiry = SchoolContact::create($validated);
 
-            $validated['school_id'] = $school->id;
+            // Send email to admin/school
+            Mail::to(config('mail.from.address'))
+                ->send(new SchoolEnquiryMail($school, $enquiry));
 
-            SchoolContact::create($validated);
-
+            // Return success JSON
             return response()->json([
                 'success' => true,
                 'message' => 'Your message has been submitted successfully!',
             ]);
-        } catch (\Illuminate\Validation\ValidationException $e) {
-            // Send validation errors back as JSON
-            return response()->json([
-                'success' => false,
-                'errors' => $e->errors(),
-            ], 422);
         } catch (\Exception $e) {
-            // Catch any unexpected errors
+            // Log the exception for debugging
+            Log::error('School Contact Form Error: ' . $e->getMessage());
+
             return response()->json([
                 'success' => false,
-                'message' => 'Something went wrong! ' . $e->getMessage(),
+                'message' => 'Something went wrong! Please try again later.',
             ], 500);
         }
     }

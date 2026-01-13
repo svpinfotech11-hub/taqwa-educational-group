@@ -12,9 +12,11 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ResultController;
 use App\Http\Controllers\SchoolController;
+use App\Http\Controllers\EnquiryController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeAboutController;
 use App\Http\Controllers\ConferenceController;
 use App\Http\Controllers\TaxiBookingController;
 use App\Http\Controllers\NeetDomicileController;
@@ -96,7 +98,7 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
 
     Route::get('results-master/index', [ResultController::class, 'show'])->name('results-master.index');
     Route::get('results-master/create', [ResultController::class, 'create'])->name('results-master.create');
-    Route::post('sgallerie/create', [ResultController::class, 'store'])->name('results-master.store');
+    Route::post('results-master/create', [ResultController::class, 'store'])->name('results-master.store');
     Route::get('results-master/{id}/edit', [ResultController::class, 'edit'])->name('results-master.edit');
     Route::put('results-master/{id}', [ResultController::class, 'update'])->name('results-master.update');
     Route::delete('results-master/{id}', [ResultController::class, 'destroy'])->name('results-master.destroy');
@@ -190,7 +192,13 @@ Route::get('/pages/{slug}', [SchoolController::class, 'show'])->name('pages.show
 Route::get('/event-detail/{id}', [HomeController::class, 'eventDetailPage'])->name('pages.event-detail-page');
 
 
-Route::post('/school/{slug}/contact', [SchoolContactController::class, 'store'])->name('school.contact.store');
+// Route::post('/school/{slug}/contact', [SchoolContactController::class, 'store'])->name('school.contact.store');
+
+Route::post(
+    '/schools/{slug}/contact',
+    [SchoolContactController::class, 'store']
+)->name('school.contact.store');
+
 Route::get('/mission-vision', [HomeController::class, 'missionVision'])->name('pages.mission-vision');
 Route::get('/our-philosophy', [HomeController::class, 'ourPhilosophy'])->name('pages.our-philosophy');
 Route::get('/values-built-on-belief', [HomeController::class, 'valuesBuiltonBelief'])->name('pages.values-built-on-belief');
@@ -244,3 +252,9 @@ Route::post('/contact-us/submit', [ContactUsMasterController::class, 'submitCont
 
 Route::delete('mission-vision/media/{id}', [MissionVisionController::class, 'deleteMedia'])
     ->name('mission-vision.media.delete');
+
+
+Route::resource('homeabout', HomeAboutController::class);
+
+
+Route::post('/enquiry', action: [EnquiryController::class, 'store'])->name('enquiry.store');

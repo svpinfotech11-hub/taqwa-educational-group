@@ -18,6 +18,7 @@ use App\Models\ChairmanMessage;
 use App\Models\Conference;
 use App\Models\ContactUsMaster;
 use App\Models\Event;
+use App\Models\HomeAbout;
 
 class HomeController extends Controller
 {
@@ -33,8 +34,10 @@ class HomeController extends Controller
         $events = Event::limit(3)->get();
         $banners = Banner::all();
 
+        $homeabout = HomeAbout::first();
+
         $conferences = Conference::limit(3)->get();
-        return view('pages.home', compact('categories', 'allcourses', 'banners', 'news', 'events', 'conferences'));
+        return view('pages.home', compact('categories', 'allcourses', 'banners', 'news', 'events', 'conferences', 'homeabout'));
     }
 
     public function coursDetail() {}

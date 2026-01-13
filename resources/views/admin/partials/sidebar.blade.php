@@ -447,31 +447,7 @@
             </ul>
           </li>
 
-         
-
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon bi bi-box-seam-fill"></i>
-              <p>
-                Home Banners
-                <i class="nav-arrow bi bi-chevron-right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('banner.create') }}" class="nav-link">
-                  <i class="nav-icon bi bi-circle"></i>
-                  <p>Add New</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('banner.index') }}" class="nav-link">
-                  <i class="nav-icon bi bi-circle"></i>
-                  <p>All Records</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+        
 
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -545,6 +521,32 @@
               </li>
             </ul>
           </li>
+
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon bi bi-box-seam-fill"></i>
+              <p>
+                Home About Page
+                <i class="nav-arrow bi bi-chevron-right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('homeabout.create') }}" class="nav-link">
+                  <i class="nav-icon bi bi-circle"></i>
+                  <p>Add New</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ url('homeabout/index') }}" class="nav-link">
+                  <i class="nav-icon bi bi-circle"></i>
+                  <p>All Records</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
 
           <li class="nav-item">
             <a href="#" class="nav-link">

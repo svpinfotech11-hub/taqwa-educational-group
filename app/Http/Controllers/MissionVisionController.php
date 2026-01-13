@@ -56,6 +56,7 @@ class MissionVisionController extends Controller
             'youtube_links.*' => 'nullable|url',
             'youtube_descriptions.*' => 'nullable|string|max:255',
         ]);
+        
 
         $section = MissionVision::create([
             'type' => $request->type,
