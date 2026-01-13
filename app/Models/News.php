@@ -8,10 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class News extends Model
 {
     use HasFactory;
-      protected $fillable = [
+    protected $fillable = [
         'title',
         'description',
         'image',
         'news_date',
     ];
+
+    public function details()
+    {
+        return $this->hasMany(NewsDetail::class, 'news_id');
+    }
 }
