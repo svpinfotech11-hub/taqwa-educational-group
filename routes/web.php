@@ -54,7 +54,13 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
     Route::put('school-members/update/{id}', [SchoolMemberController::class, 'update'])->name('school-members.update');
     Route::delete('school-members/destroy/{id}', [SchoolMemberController::class, 'destroy'])->name('school-members.destroy');
 
-    Route::resource('news', NewsController::class);
+    Route::get('new', [NewsController::class, 'index'])->name('news.index');
+    Route::get('news/create', [NewsController::class, 'create'])->name('news.create');
+    Route::post('news/store', [NewsController::class, 'store'])->name('news.store');
+    Route::get('news/edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
+    Route::put('news/update/{id}', [NewsController::class, 'update'])->name('news.update');
+    Route::delete('news/destroy/{id}', [NewsController::class, 'destroy'])->name('news.destroy');
+
 
     Route::get('subpage_banners/create', [SubpageBannerController::class, 'create'])->name('subpage_banners.create');
     Route::get('subpage_banners/index', [SubpageBannerController::class, 'index'])->name('subpage_banners.index');
@@ -121,27 +127,26 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
     Route::get('events/create', [EventController::class, 'create'])->name('events.create');
     Route::post('events/create', [EventController::class, 'store'])->name('events.store');
     Route::get('events/{id}/edit', [EventController::class, 'edit'])->name('events.edit');
-    Route::put('events/{id}', [EventController::class, 'update'])->name('events.update');
+    Route::post('events/{id}', [EventController::class, 'update'])->name('events.update');
     Route::delete('events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
 
     Route::get('contactUs-master/create', [ContactUsMasterController::class, 'create'])
-    ->name('contactUs-master.create');
+        ->name('contactUs-master.create');
 
     Route::post('contactUs-master/store', [ContactUsMasterController::class, 'store'])
-    ->name('contactUs-master.store');
+        ->name('contactUs-master.store');
 
     Route::get('contactUs-master/index', [ContactUsMasterController::class, 'index'])
-    ->name('contactUs-master.index');
+        ->name('contactUs-master.index');
 
     Route::get('contactUs-master/edit/{id}', [ContactUsMasterController::class, 'edit'])
-    ->name('contactUs-master.edit');
+        ->name('contactUs-master.edit');
 
     Route::put('contactUs-master/update/{id}', [ContactUsMasterController::class, 'update'])
-    ->name('contactUs-master.update');
+        ->name('contactUs-master.update');
 
     Route::delete('contactUs-master/destroy/{id}', [ContactUsMasterController::class, 'destroy'])
-    ->name('contactUs-master.destroy');
-
+        ->name('contactUs-master.destroy');
 });
 Route::get('/conferences-show', [ConferenceController::class, 'showMethod'])->name('conferences-show');
 Route::get('/show-page/{slug}', [ConferenceDetailController::class, 'showConfDetail'])->name('show-page');
@@ -169,8 +174,7 @@ Route::middleware('auth')->group(function () {
         'about-page' => 'about'
     ]);
 
- Route::resource('roles', RoleController::class)->only(['edit','update']);
-
+    Route::resource('roles', RoleController::class)->only(['edit', 'update']);
 });
 
 

@@ -9,9 +9,14 @@ class About extends Model
 {
     use HasFactory;
 
-     protected $fillable = [
+    protected $fillable = [
         'name',
         'description',
         'image',
     ];
+
+    public function details()
+    {
+        return $this->hasMany(AboutusDetail::class, 'aboutus_id', 'id');
+    }
 }

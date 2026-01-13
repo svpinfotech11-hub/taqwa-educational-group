@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\About;
+use App\Models\AboutusDetail;
 use Illuminate\Http\Request;
 
 class AboutController extends Controller
 {
     public function index()
     {
-        $abouts = About::latest()->get();
+        $abouts = About::with('details')->latest()->get();
         return view('about-page.index', compact('abouts'));
     }
 
@@ -21,70 +22,120 @@ class AboutController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|max:2048',
+            'links.*' => 'nullable|url'
         ]);
-
-        $imagePath = null;
-
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('about'), $imageName);
-
-            // store relative path (optional)
-            $imagePath =  $imageName;
-        }
-
-        About::create([
+        $about = About::create([
             'name' => $request->name,
             'description' => $request->description,
-            'image' => $imagePath,
         ]);
 
-        return redirect()->route('about-page.index')->with('success', 'About record created successfully!');
+        $images = $request->file('images', []);
+        $videos = $request->file('videos', []);
+        $links  = $request->links ?? [];
+
+        $count = max(count($images), count($videos), count($links));
+
+        for ($i = 0; $i < $count; $i++) {
+
+            $imageName = null;
+            $videoName = null;
+
+            if (isset($images[$i])) {
+                $imageName = time() . '_' . $images[$i]->getClientOriginalName();
+                $images[$i]->move('about/images', $imageName);
+            }
+
+            if (isset($videos[$i])) {
+                $videoName = time() . '_' . $videos[$i]->getClientOriginalName();
+                $videos[$i]->move('about/videos', $videoName);
+            }
+
+            AboutusDetail::create([
+                'aboutus_id' => $about->id,
+                'image' => $imageName,
+                'video' => $videoName,
+                'link'  => $links[$i] ?? null,
+            ]);
+        }
+
+        return back()->with('success', 'About Us saved successfully');
     }
 
-    public function edit(About $about)
+    public function edit($id)
     {
+        $about = About::with('details')->findOrFail($id);
         return view('about-page.edit', compact('about'));
     }
 
-    public function update(Request $request, About $about)
+    public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|max:2048',
+            'links.*' => 'nullable|url',
         ]);
 
-        $imagePath = $about->image; // keep the existing image by default
-
-        // If a new image is uploaded, replace the old one
-        if ($request->hasFile('image')) {
-            // Delete old image if it exists
-            if ($about->image && file_exists(public_path('about/' . basename($about->image)))) {
-                unlink(public_path('about/' . basename($about->image)));
-            }
-
-            // Upload new image
-            $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('about'), $imageName);
-
-            // Store relative path
-            $imagePath = $imageName;
-        }
+        $about = About::findOrFail($id);
 
         $about->update([
             'name' => $request->name,
             'description' => $request->description,
-            'image' => $imagePath,
         ]);
 
-        return redirect()->route('about-page.index')->with('success', 'About record updated successfully!');
+        $submittedIds = $request->detail_ids ?? [];
+        $existingIds  = $about->details()->pluck('id')->toArray();
+
+        $deleteIds = array_diff($existingIds, $submittedIds);
+
+        if (!empty($deleteIds)) {
+            AboutusDetail::whereIn('id', $deleteIds)->delete();
+        }
+
+        $images    = $request->file('images', []);
+        $videos    = $request->file('videos', []);
+        $links     = $request->links ?? [];
+        $detailIds = $request->detail_ids ?? [];
+
+        $count = max(count($images), count($videos), count($links), count($detailIds));
+
+        for ($i = 0; $i < $count; $i++) {
+
+            $detail = isset($detailIds[$i])
+                ? AboutusDetail::find($detailIds[$i])
+                : new AboutusDetail();
+
+            $detail->aboutus_id = $about->id;
+
+            if (isset($images[$i])) {
+                $imageName = time() . '_' . $images[$i]->getClientOriginalName();
+                $images[$i]->move('about/images', $imageName);
+                $detail->image = $imageName;
+            }
+
+            if (isset($videos[$i])) {
+                $videoName = time() . '_' . $videos[$i]->getClientOriginalName();
+                $videos[$i]->move('about/videos', $videoName);
+                $detail->video = $videoName;
+            }
+
+            if (!empty($links[$i])) {
+                $detail->link = $links[$i];
+            }
+
+            if (
+                empty($detail->image) &&
+                empty($detail->video) &&
+                empty($detail->link)
+            ) {
+                continue;
+            }
+
+            $detail->save();
+        }
+
+        return redirect()
+            ->route('about-page.index')
+            ->with('success', 'About Us Updated Successfully');
     }
+
 
     public function destroy(About $about)
     {

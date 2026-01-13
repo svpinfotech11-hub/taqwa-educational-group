@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Models\NewsDetail;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
     public function index()
     {
-        $news = News::latest()->paginate(10);
+        $news = News::with('details')->latest()->paginate(10);
         return view('news.index', compact('news'));
     }
 
@@ -24,48 +25,123 @@ class NewsController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required',
             'news_date' => 'required|date',
-            'image' => 'nullable|max:2048',
+            'links.*' => 'nullable|url',
         ]);
 
-        $data = $request->all();
+        $news = News::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'news_date' => $request->news_date,
+        ]);
 
-        if ($request->hasFile('image')) {
-            $fileName = time() . '.' . $request->image->extension();
-            $request->image->move('uploads/news', $fileName);
-            $data['image'] = $fileName;
+        $images = $request->file('images', []);
+        $videos = $request->file('videos', []);
+        $links  = $request->links ?? [];
+
+        $count = max(count($images), count($videos), count($links));
+
+        for ($i = 0; $i < $count; $i++) {
+
+            $imageName = null;
+            $videoName = null;
+
+            if (isset($images[$i])) {
+                $imageName = time() . '_' . $images[$i]->getClientOriginalName();
+                $images[$i]->move('news/images', $imageName);
+            }
+
+            if (isset($videos[$i])) {
+                $videoName = time() . '_' . $videos[$i]->getClientOriginalName();
+                $videos[$i]->move('news/videos', $videoName);
+            }
+
+            if (!$imageName && !$videoName && empty($links[$i])) {
+                continue;
+            }
+
+            NewsDetail::create([
+                'news_id' => $news->id,
+                'image' => $imageName,
+                'video' => $videoName,
+                'link'  => $links[$i] ?? null,
+            ]);
         }
-
-        News::create($data);
 
         return redirect()->route('news.index')->with('success', 'News added successfully.');
     }
 
     public function edit($id)
     {
-        $news = News::findOrFail($id);
+        $news = News::with('details')->findOrFail($id);
         return view('news.edit', compact('news'));
     }
 
     public function update(Request $request, $id)
     {
-        $news = News::findOrFail($id);
-
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required',
             'news_date' => 'required|date',
-            'image' => 'nullable|max:2048',
+            'links.*' => 'nullable|url',
         ]);
 
-        $data = $request->all();
+        $news = News::findOrFail($id);
 
-        if ($request->hasFile('image')) {
-            $fileName = time() . '.' . $request->image->extension();
-            $request->image->move('uploads/news', $fileName);
-            $data['image'] = $fileName;
+        $news->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'news_date' => $request->news_date,
+        ]);
+
+        $submittedIds = $request->detail_ids ?? [];
+        $existingIds  = $news->details()->pluck('id')->toArray();
+        $deleteIds    = array_diff($existingIds, $submittedIds);
+
+        if (!empty($deleteIds)) {
+            NewsDetail::whereIn('id', $deleteIds)->delete();
         }
 
-        $news->update($data);
+        $images    = $request->file('images', []);
+        $videos    = $request->file('videos', []);
+        $links     = $request->links ?? [];
+        $detailIds = $request->detail_ids ?? [];
+
+        $count = max(count($images), count($videos), count($links), count($detailIds));
+
+        for ($i = 0; $i < $count; $i++) {
+
+            $detail = isset($detailIds[$i])
+                ? NewsDetail::find($detailIds[$i])
+                : new NewsDetail();
+
+            $detail->news_id = $news->id;
+
+            if (isset($images[$i])) {
+                $imageName = time() . '_' . $images[$i]->getClientOriginalName();
+                $images[$i]->move('news/images', $imageName);
+                $detail->image = $imageName;
+            }
+
+            if (isset($videos[$i])) {
+                $videoName = time() . '_' . $videos[$i]->getClientOriginalName();
+                $videos[$i]->move('news/videos', $videoName);
+                $detail->video = $videoName;
+            }
+
+            if (!empty($links[$i])) {
+                $detail->link = $links[$i];
+            }
+
+            if (
+                empty($detail->image) &&
+                empty($detail->video) &&
+                empty($detail->link)
+            ) {
+                continue;
+            }
+
+            $detail->save();
+        }
 
         return redirect()->route('news.index')->with('success', 'News updated successfully.');
     }
