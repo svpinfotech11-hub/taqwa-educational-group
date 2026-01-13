@@ -61,12 +61,187 @@
             margin-bottom: 15px;
             position: relative;
         }
+
         .hero-content p {
-    font-size: 18px;
-    line-height: 1.6;
-    color: #fff !important;
-}
+            font-size: 18px;
+            line-height: 1.6;
+            color: #fff !important;
+        }
     </style>
+
+    <style>
+        .media-marquee-area {
+            background: #f9f9f9;
+            padding: 45px 0;
+            overflow: hidden;
+        }
+
+        .media-marquee {
+            display: flex;
+            align-items: center;
+            gap: 35px;
+            width: max-content;
+            animation: scroll-left 40s linear infinite;
+        }
+
+        .media-marquee-area:hover .media-marquee {
+            animation-play-state: paused;
+        }
+
+        .media-item {
+            border: 1px solid #eee;
+            padding: 8px;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+
+        .media-item:hover {
+            transform: scale(1.06);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+        }
+
+        .media-item img,
+        .media-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .video-thumb {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 20px;
+            text-align: center;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.65);
+            color: #fff;
+            pointer-events: none;
+        }
+
+        .video-item::after {
+            content: "Video";
+            position: absolute;
+            bottom: 6px;
+            left: 6px;
+            font-size: 11px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 991px) {
+            .media-item {
+                width: 160px;
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .media-item {
+                width: 140px;
+                height: 90px;
+            }
+
+            .play-btn {
+                width: 34px;
+                height: 34px;
+                line-height: 34px;
+                font-size: 18px;
+            }
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .about-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 45px 45px;
+            text-align: center;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .about-subtitle {
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1.4px;
+            color: #1a2bff;
+            margin-bottom: 10px;
+        }
+
+        .about-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0b0b2c;
+            margin-bottom: 20px;
+        }
+
+        .about-desc {
+            font-size: 15.5px;
+            line-height: 1.9;
+            color: #6b6b84;
+        }
+
+        @media (max-width: 768px) {
+            .about-card {
+                padding: 30px 25px;
+            }
+
+            .about-title {
+                font-size: 22px;
+            }
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: #000;
+            color: #fff;
+            font-size: 22px;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 1056;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close-btn:hover {
+            background: #dc3545;
+            transform: scale(1.1);
+        }
+    </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 
 </head>
 
@@ -76,7 +251,8 @@
     <div id="preloader">
         <div id="loader" class="loader">
             <div class="loader-container">
-                <div class="loader-icon"><img src="{{ asset('images/Untitled design (1).png') }}" alt="Preloader"></div>
+                <div class="loader-icon"><img src="{{ asset('images/Untitled design (1).png') }}" alt="Preloader">
+                </div>
             </div>
         </div>
     </div>
