@@ -34,6 +34,7 @@
     </div>
     <!--end::Container-->
 </div>
+
 <!--end::App Content Header-->
 <!--begin::App Content-->
 <div class="app-content">

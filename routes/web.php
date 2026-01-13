@@ -236,3 +236,7 @@ Route::get('privacy-policy', [HomeController::class, 'privacypolicy'])->name('pa
 
 
 Route::post('/contact-us/submit', [ContactUsMasterController::class, 'submitContactForm'])->name('contact.us.submit');
+
+
+Route::delete('mission-vision/media/{id}', [MissionVisionController::class, 'deleteMedia'])
+    ->name('mission-vision.media.delete');

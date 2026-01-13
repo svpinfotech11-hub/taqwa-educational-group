@@ -108,14 +108,25 @@ class HomeController extends Controller
         return view('pages.facility', compact('page'));
     }
 
+    // public function missionVision()
+    // {
+    //     $missions = MissionVision::where('type', 'mission')->get();
+    //     $visions = MissionVision::where('type', 'vision')->get();
+    //     $objectives = MissionVision::where('type', 'objective')->get();
+    //     $page = SubpageBanner::where('id', 15)->first();
+    //     return view('pages.mission-vision', compact('missions', 'visions', 'objectives', 'page'));
+    // }
+
     public function missionVision()
     {
-        $missions = MissionVision::where('type', 'mission')->get();
-        $visions = MissionVision::where('type', 'vision')->get();
-        $objectives = MissionVision::where('type', 'objective')->get();
+        $missions = MissionVision::with('media')->where('type', 'mission')->get();
+        $visions  = MissionVision::with('media')->where('type', 'vision')->get();
+        $objectives = MissionVision::with('media')->where('type', 'objective')->get();
         $page = SubpageBanner::where('id', 15)->first();
-        return view('pages.mission-vision', compact('missions', 'visions', 'objectives', 'page'));
+
+        return view('pages.mission-vision', compact('missions','visions','objectives', 'page'));
     }
+
 
     public function ourPhilosophy(){
          $page = SubpageBanner::where('id', 16)->first();
