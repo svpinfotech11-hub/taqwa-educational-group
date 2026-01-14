@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-if (!Schema::hasColumn('users', 'role_id')) {
-        $table->unsignedBigInteger('role_id')->after('id');
-    }
+        Schema::create('enquiries', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone')->nullable();
+            $table->text('message');
+            $table->timestamps();
         });
     }
 
@@ -23,8 +26,6 @@ if (!Schema::hasColumn('users', 'role_id')) {
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('enquiries');
     }
 };

@@ -117,6 +117,9 @@
     .blog__post-item-four.shine__animate-item.asd {
         height: 150px;
     }
+    .text-center.test-des p {
+    text-align: justify;
+}
 </style>
 <!-- banner-area -->
 <section class="hero-slider-area">
@@ -145,20 +148,15 @@
         <div class="col-md-10 mx-auto">
         <div class="row justify-content-center">
         <div class="col-xl-10 mt-4 mx-auto">
-                <div class="section__title text-center mb-50">
-                    <h2 class="title">About Us</h2>
-                    <h6>Welcome to Taqwa Education Group</h6>
+                <div class="section__title text-center mb-2">
+                    <h2 class="title">{{ $homeabout->title }}</h2>
+                    <!-- <h6>Welcome to Taqwa Education Group</h6> -->
                 </div>
             </div>
         </div>
-            <p>Located at Chhawni, Bettiah Mainatand Road, District West Champaran, Bihar – 845438, Taqwa Education Group is an initiative dedicated to empowering the Muslim community through quality, modern, and value-based education.</p>
-            <p>Our mission is to provide students with academic excellence rooted in Islamic principles, helping them grow into confident, knowledgeable, and responsible individuals.</p>
-           <p>At Taqwa Education Group, we believe that true success lies in combining worldly knowledge (Duniya) with spiritual growth (Deen).</p>
-           <p>Our curriculum integrates modern education with Islamic studies, moral values, and character development.</p>
-        <!-- <h4>Our Vision</h4>
-        <p>To build an educated, empowered, and ethically strong Muslim community that contributes positively to society.</p>
-        </div> -->
+          <div class="text-center test-des">{!! $homeabout->description  !!}</div>
     </div>
+</div>
 </div>
 
 <!-- conferences-area -->

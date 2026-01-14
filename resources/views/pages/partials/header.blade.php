@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/spacing.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/tg-cursor.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css" />
 
     <style>
         @media (max-width: 1500px) {

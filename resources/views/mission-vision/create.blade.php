@@ -105,6 +105,53 @@
                                     <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
+
+
+                                <hr>
+                                <h5 class="mb-3">Media (Optional)</h5>
+
+                                <!-- Images -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Images</label>
+                                    <div id="image-wrapper">
+                                        <div class="d-flex mb-2">
+                                            <input type="file" name="images[]" class="form-control me-2" accept="image/*">
+                                            <button type="button" class="btn btn-success add-image">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Videos -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Videos</label>
+                                    <div id="video-wrapper">
+                                        <div class="d-flex mb-2">
+                                            <input type="file" name="videos[]" class="form-control me-2" accept="video/*">
+                                            <button type="button" class="btn btn-success add-video">+</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- YouTube Links with Description -->
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">YouTube Links</label>
+                                    <div id="youtube-wrapper">
+                                        <div class="row mb-2 align-items-center">
+                                            <div class="col-md-5">
+                                                <input type="text" name="youtube_links[]" class="form-control"
+                                                    placeholder="YouTube URL">
+                                            </div>
+                                            <div class="col-md-5">
+                                                <input type="text" name="youtube_descriptions[]" class="form-control"
+                                                    placeholder="Description (optional)">
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button type="button" class="btn btn-success add-youtube w-100">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
@@ -126,5 +173,56 @@
     <!--end::Container-->
 </div>
 <!--end::App Content-->
+
+
+<script>
+document.addEventListener('click', function (e) {
+
+    // Images
+    if (e.target.classList.contains('add-image')) {
+        document.getElementById('image-wrapper').insertAdjacentHTML('beforeend', `
+            <div class="d-flex mb-2">
+                <input type="file" name="images[]" class="form-control me-2" accept="image/*">
+                <button type="button" class="btn btn-danger remove">×</button>
+            </div>
+        `);
+    }
+
+    // Videos
+    if (e.target.classList.contains('add-video')) {
+        document.getElementById('video-wrapper').insertAdjacentHTML('beforeend', `
+            <div class="d-flex mb-2">
+                <input type="file" name="videos[]" class="form-control me-2" accept="video/*">
+                <button type="button" class="btn btn-danger remove">×</button>
+            </div>
+        `);
+    }
+
+    // YouTube
+    if (e.target.classList.contains('add-youtube')) {
+        document.getElementById('youtube-wrapper').insertAdjacentHTML('beforeend', `
+            <div class="row mb-2 align-items-center">
+                <div class="col-md-6">
+                    <input type="text" name="youtube_links[]" class="form-control"
+                           placeholder="YouTube URL">
+                </div>
+                <div class="col-md-6">
+                    <input type="text" name="youtube_descriptions[]" class="form-control"
+                           placeholder="Description (optional)">
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="btn btn-danger remove w-100">×</button>
+                </div>
+            </div>
+        `);
+    }
+
+    // Remove
+    if (e.target.classList.contains('remove')) {
+        e.target.closest('.d-flex, .row').remove();
+    }
+});
+</script>
+
 
 @endsection

@@ -149,7 +149,7 @@
                       <h4 class="title">Send Us Message</h4>
                       <p>Your email address will not be published. Required fields are marked *</p>
 
-                      <form id="contact-form" method="POST">
+                     <form id="contact-form" method="POST" action="{{ route('school.contact.store', $school->slug) }}">
                           @csrf
 
                           <div class="row">
@@ -252,75 +252,73 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script>
-      $(document).ready(function() {
-          let isSubmitting = false;
+<script>
+$(document).ready(function() {
+    let isSubmitting = false;
 
-          // 💡 Remove any existing event handlers before attaching a new one
-          $('#contact-form').off('submit').on('submit', function(e) {
-              e.preventDefault();
+    $('#contact-form').off('submit').on('submit', function(e) {
+        e.preventDefault();
 
-              if (isSubmitting) return;
-              isSubmitting = true;
-              let actionUrl = "{{ route('school.contact.store', $school->slug) }}";
+        if (isSubmitting) return;
+        isSubmitting = true;
 
-              let form = $(this);
-              let formData = form.serialize();
+        let form = $(this);
+        let actionUrl = form.attr('action'); // 👈 use form's action dynamically
+        let formData = form.serialize();
 
-              $.ajax({
-                  url: actionUrl,
-                  type: 'POST',
-                  data: formData,
-                  beforeSend: function() {
-                      form.find('button[type=submit]').prop('disabled', true).text('Submitting...');
-                  },
-                  success: function(response) {
-                      if (response.success) {
-                          Swal.fire({
-                              icon: 'success',
-                              title: 'Success!',
-                              text: response.message,
-                              showConfirmButton: false,
-                              timer: 2500
-                          });
-                          form.trigger('reset');
-                      } else {
-                          let message = response.errors ?
-                              Object.values(response.errors).flat().join('\n') :
-                              response.message || 'An unknown error occurred.';
+        $.ajax({
+            url: actionUrl,
+            type: 'POST',
+            data: formData,
+            beforeSend: function() {
+                form.find('button[type=submit]').prop('disabled', true).text('Submitting...');
+            },
+            success: function(response) {
+                if (response.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: response.message,
+                        showConfirmButton: false,
+                        timer: 2500
+                    });
+                    form.trigger('reset');
+                } else {
+                    let message = response.errors ?
+                        Object.values(response.errors).flat().join('\n') :
+                        response.message || 'An unknown error occurred.';
 
-                          Swal.fire({
-                              icon: 'error',
-                              title: 'Error!',
-                              text: message
-                          });
-                      }
-                  },
-                  error: function(xhr) {
-                      let message = 'Something went wrong. Please try again later.';
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: message
+                    });
+                }
+            },
+            error: function(xhr) {
+                let message = 'Something went wrong. Please try again later.';
+                if (xhr.responseJSON) {
+                    if (xhr.responseJSON.errors) {
+                        message = Object.values(xhr.responseJSON.errors).flat().join('\n');
+                    } else if (xhr.responseJSON.message) {
+                        message = xhr.responseJSON.message;
+                    }
+                }
 
-                      if (xhr.responseJSON) {
-                          if (xhr.responseJSON.errors) {
-                              message = Object.values(xhr.responseJSON.errors).flat().join('\n');
-                          } else if (xhr.responseJSON.message) {
-                              message = xhr.responseJSON.message;
-                          }
-                      }
-
-                      Swal.fire({
-                          icon: 'error',
-                          title: 'Error!',
-                          text: message
-                      });
-                  },
-                  complete: function() {
-                      form.find('button[type=submit]').prop('disabled', false).text('Submit Now');
-                      isSubmitting = false;
-                  }
-              });
-          });
-      });
-  </script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: message
+                });
+            },
+            complete: function() {
+                form.find('button[type=submit]').prop('disabled', false).text('Submit Now');
+                isSubmitting = false;
+            }
+        });
+    });
+});
+</script>
 
 
   @endsection

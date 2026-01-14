@@ -11,10 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-if (!Schema::hasColumn('users', 'role_id')) {
-        $table->unsignedBigInteger('role_id')->after('id');
-    }
+        Schema::create('home_abouts', function (Blueprint $table) {
+            $table->id();
+              $table->string('title');
+            $table->text('description'); // for rich text
+            $table->timestamps();
         });
     }
 
@@ -23,8 +24,6 @@ if (!Schema::hasColumn('users', 'role_id')) {
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('home_abouts');
     }
 };

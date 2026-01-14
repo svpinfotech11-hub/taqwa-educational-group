@@ -11,4 +11,9 @@ class MissionVision extends Model
 
         protected $table = 'missions_visions';
       protected $fillable = ['type', 'title', 'description'];
+
+      public function media()
+      {
+          return $this->hasMany(MissionVisionMedia::class);
+      }
 }
