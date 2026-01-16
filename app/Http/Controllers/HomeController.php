@@ -19,6 +19,7 @@ use App\Models\Conference;
 use App\Models\ContactUsMaster;
 use App\Models\Event;
 use App\Models\HomeAbout;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {

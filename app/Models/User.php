@@ -17,12 +17,13 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-   protected $fillable = [
+    protected $fillable = [
         'name',
         'email',
         'password',
         'role_id',
         'status',
+        'permissions'
     ];
 
     /**
@@ -43,17 +44,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'permissions' => 'array',
     ];
 
-    // Relationship to Role
-   public function role()
-    {
-        return $this->belongsTo(\App\Models\Role::class, 'role_id');
-    }
-
-    // Helper function to check module access
     public function hasModule($slug)
     {
         return $this->role && $this->role->modules->contains('slug', $slug);
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id');
     }
 }
