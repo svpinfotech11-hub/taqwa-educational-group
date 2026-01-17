@@ -32,7 +32,7 @@
                 Dashboard
               </p>
             </a>
-          @if(Auth::check() && Auth::user()->role && Auth::user()->role->name === 'superadmin')
+        @if(Auth::check() && Auth::user()->role === 'superadmin')
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon bi bi-box-seam-fill"></i>

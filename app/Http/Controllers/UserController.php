@@ -61,64 +61,29 @@ class UserController extends Controller
     /**
      * Handle login form submission.
      */
-    // public function loginPost(Request $request)
-    // {
-    //     $request->validate([
-    //         'email'    => 'required|email',
-    //         'password' => 'required|string|min:6',
-    //     ]);
-
-    //     $credentials = $request->only('email', 'password');
-
-    //     if (Auth::attempt($credentials)) {
-    //         $user = Auth::user();
-
-    //         if ($user->status != 1) {
-    //             Auth::logout();
-    //             return redirect()->route('auth.login')->with('error', 'Your account is inactive.');
-    //         }
-
-    //         // ✅ All users (superadmin, group1, group2, etc.) go to the same dashboard
-    //         return redirect()->route('admin.dashboard')
-    //             ->with('success', 'Welcome ' . $user->name . '!');
-    //     }
-
-    //     return redirect()->route('auth.login')->with('error', 'Invalid credentials.');
-    // }
-
-
     public function loginPost(Request $request)
-{
-    $request->validate([
-        'email'    => 'required|email',
-        'password' => 'required|string|min:6',
-    ]);
+    {
+        $request->validate([
+            'email'    => 'required|email',
+            'password' => 'required|string|min:6',
+        ]);
 
-    // Only allow ACTIVE users
-    if (Auth::attempt([
-        'email' => $request->email,
-        'password' => $request->password,
-        'status' => 1, // ✅ important
-    ])) {
+        $credentials = $request->only('email', 'password');
 
-        $user = auth()->user();
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
 
-        // ✅ SAFETY CHECK (VERY IMPORTANT)
-        if (!$user->role) {
-            Auth::logout();
-            return redirect()
-                ->route('auth.login')
-                ->with('error', 'No role assigned. Contact admin.');
+            if ($user->status != 1) {
+                Auth::logout();
+                return redirect()->route('auth.login')->with('error', 'Your account is inactive.');
+            }
+
+            // ✅ All users (superadmin, group1, group2, etc.) go to the same dashboard
+            return redirect()->route('admin.dashboard')
+                ->with('success', 'Welcome ' . $user->name . '!');
         }
 
-        return redirect()
-            ->route('admin.dashboard')
-            ->with('success', 'Welcome ' . $user->name . '!');
-    }
-
-    return redirect()
-        ->route('auth.login')
-        ->with('error', 'Invalid credentials or inactive account.');
+        return redirect()->route('auth.login')->with('error', 'Invalid credentials.');
     }
 
 
