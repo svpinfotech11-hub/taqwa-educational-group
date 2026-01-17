@@ -194,7 +194,7 @@ p.text-dark.jhgfjhfj {
 
                                       <li class="menu-item-has-children"><a href="#">News & Events</a>
                                           <ul class="sub-menu">
-                                              <li><a href="menu-item-has-children">Events</a>
+                                              <li><a href="{{ route('pages.all-events') }}">Events</a>
                                                   <ul class="sub-menu">
                                                       <li><a href="{{ route('conferences-show') }}">Conference</a></li>
                                                       <!-- <li><a href="#">Scholarships</a></li> -->

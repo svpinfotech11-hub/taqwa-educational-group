@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-if (!Schema::hasColumn('users', 'role_id')) {
-        $table->unsignedBigInteger('role_id')->after('id');
-    }
+            if (!Schema::hasColumn('users', 'role_id')) {
+                $table->unsignedBigInteger('role_id')->after('id');
+            }
         });
     }
 

@@ -13,7 +13,7 @@ class SuperadminSeeder extends Seeder
     {
         // Check if Superadmin role exists
         $role = Role::firstOrCreate(
-            ['name' => 'superadmin'], 
+            ['name' => 'superadmin'],
         );
 
         // Create Superadmin user
@@ -23,6 +23,7 @@ class SuperadminSeeder extends Seeder
                 'name'     => 'Super Admin',
                 'password' => Hash::make('admin123'), // change to a secure password
                 'role_id'  => $role->id,
+                'permissions' => '["all"]',
                 'status'   => 1
             ]
         );

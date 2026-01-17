@@ -151,12 +151,12 @@
         <div class="row justify-content-center">
         <div class="col-xl-10 mt-4 mx-auto">
                 <div class="section__title text-center mb-2">
-                    <h2 class="title">{{ $homeabout->title }}</h2>
+                    <h2 class="title">{{ $homeabout->title ?? '' }}</h2>
                     <!-- <h6>Welcome to Taqwa Education Group</h6> -->
                 </div>
             </div>
         </div>
-          <div class="text-center test-des">{!! $homeabout->description  !!}</div>
+          <div class="text-center test-des">{!! $homeabout->description ?? ''  !!}</div>
     </div>
 </div>
 </div>

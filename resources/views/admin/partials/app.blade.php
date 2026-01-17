@@ -271,7 +271,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             flatpickr("#news_date", {
-                dateFormat: "Y-m-d", 
+                dateFormat: "Y-m-d",
                 altInput: false,
                 allowInput: true,
                 defaultDate: "{{ old('news_date', $news->news_date ?? '') }}",

@@ -61,7 +61,7 @@
                                         <label for="event_date" class="form-label">Event Date <span
                                                 class="text-danger">*</span></label>
                                         <input type="date" name="event_date" id="news_date" class="form-control"
-                                            value="{{ old('event_date') }}"  placeholder="yyyy-mm-dd" required>
+                                            value="{{ old('event_date') }}" placeholder="yyyy-mm-dd" required>
                                     </div>
 
                                     <!-- Description -->
@@ -71,33 +71,34 @@
                                     </div>
 
                                     <div class="col-md-12">
-                                        <label class="form-label">Images / Videos / Links</label>
-
+                                        <label class="form-label fw-bold">Media Details</label>
                                         <div id="item-wrapper">
-
                                             <!-- First Row -->
                                             <div class="row g-2 mb-3 item-row">
+                                                <!-- Image -->
                                                 <div class="col-md-3">
+                                                    <label class="form-label">Image</label>
                                                     <input type="file" name="images[]" class="form-control"
                                                         accept=".jpg,.jpeg,.png,.webp,image/*">
                                                 </div>
-
+                                                <!-- Video -->
                                                 <div class="col-md-3">
+                                                    <label class="form-label">Video</label>
                                                     <input type="file" name="videos[]" class="form-control"
                                                         accept=".mp4,.mov,.avi,.mkv,video/*">
                                                 </div>
-
+                                                <!-- Link -->
                                                 <div class="col-md-4">
+                                                    <label class="form-label">Link</label>
                                                     <input type="text" name="links[]" class="form-control"
                                                         placeholder="https://example.com">
                                                 </div>
-
-                                                <div class="col-md-2 d-flex gap-1">
+                                                <!-- Buttons -->
+                                                <div class="col-md-2 d-flex align-items-end gap-1">
                                                     <button type="button" class="btn btn-success add-item">+</button>
                                                     <button type="button" class="btn btn-danger remove-item">−</button>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
 
@@ -127,22 +128,31 @@
 
             let row = `
         <div class="row g-2 mb-3 item-row">
+
+            <!-- Image -->
             <div class="col-md-3">
+                <label class="form-label">Image</label>
                 <input type="file" name="images[]" class="form-control" accept="image/*">
             </div>
 
+            <!-- Video -->
             <div class="col-md-3">
+                <label class="form-label">Video</label>
                 <input type="file" name="videos[]" class="form-control" accept="video/*">
             </div>
 
+            <!-- Link -->
             <div class="col-md-4">
-                <input type="text" name="links[]" class="form-control" placeholder="Video / Website Link">
+                <label class="form-label">Link</label>
+                <input type="text" name="links[]" class="form-control" placeholder="https://example.com">
             </div>
 
-            <div class="col-md-2 d-flex gap-1">
+            <!-- Buttons -->
+            <div class="col-md-2 d-flex align-items-end gap-1">
                 <button type="button" class="btn btn-success add-item">+</button>
                 <button type="button" class="btn btn-danger remove-item">−</button>
             </div>
+
         </div>
         `;
 
@@ -156,45 +166,5 @@
                 row.remove();
             }
         }
-    });
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
-    document.addEventListener('change', function(e) {
-
-        if (e.target.name === 'images[]') {
-            const file = e.target.files[0];
-
-            if (file && !file.type.startsWith('image/')) {
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Invalid Image',
-                    text: 'Please select a valid image file (jpg, png, jpeg, webp)',
-                    confirmButtonText: 'OK'
-                });
-
-                e.target.value = '';
-            }
-        }
-
-        if (e.target.name === 'videos[]') {
-            const file = e.target.files[0];
-
-            if (file && !file.type.startsWith('video/')) {
-
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Invalid Video',
-                    text: 'Please select a valid video file (mp4, mov, avi, mkv)',
-                    confirmButtonText: 'OK'
-                });
-
-                e.target.value = '';
-            }
-        }
-
     });
 </script>

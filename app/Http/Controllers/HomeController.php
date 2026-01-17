@@ -19,6 +19,7 @@ use App\Models\Conference;
 use App\Models\ContactUsMaster;
 use App\Models\Event;
 use App\Models\HomeAbout;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -44,7 +45,7 @@ class HomeController extends Controller
 
     public function about()
     {
-        $about =  About::first();
+       $about = About::with('details')->latest()->first();
         $page = SubpageBanner::where('id', 2)->first();
         return view('pages.about-us', compact('about', 'page'));
     }
@@ -52,7 +53,7 @@ class HomeController extends Controller
     public function contactUs()
     {
         $page = SubpageBanner::where('id', 4)->first();
-         $contactUs = ContactUsMaster::latest()->first(); 
+         $contactUs = ContactUsMaster::latest()->first();
 
       $contact = ContactUsMaster::first(); // contains whatsapp_no
     //   dd($contact);
@@ -67,7 +68,7 @@ class HomeController extends Controller
 
     public function news()
     {
-        $news = News::latest()->paginate(10);
+        $news = News::with('details')->latest()->first();
         $page = SubpageBanner::where('id', 7)->first();
         return view('pages.news-list', compact('news', 'page'));
     }
@@ -181,7 +182,7 @@ class HomeController extends Controller
     }
 
     public function allEvents(){
-        $allEvents = Event::paginate(10);
+        $allEvents = Event::with('details')->latest()->first();
         $page = SubpageBanner::where('id', 28)->first();
         return view('pages.all-events', compact('allEvents', 'page'));
     }
