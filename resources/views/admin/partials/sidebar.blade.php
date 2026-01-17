@@ -453,30 +453,6 @@
             <a href="#" class="nav-link">
               <i class="nav-icon bi bi-box-seam-fill"></i>
               <p>
-                About
-                <i class="nav-arrow bi bi-chevron-right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('about-page.create') }}" class="nav-link">
-                  <i class="nav-icon bi bi-circle"></i>
-                  <p>Add New</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('about-page.index') }}" class="nav-link">
-                  <i class="nav-icon bi bi-circle"></i>
-                  <p>All Records</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon bi bi-box-seam-fill"></i>
-              <p>
                 Course Categories
                 <i class="nav-arrow bi bi-chevron-right"></i>
               </p>
