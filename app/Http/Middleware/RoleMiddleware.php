@@ -55,7 +55,7 @@ class RoleMiddleware
         if (in_array('all', $permissions)) {
             return $next($request);
         }
-        
+
         $request->merge(['allowed_modules' => $permissions]);
 
         return $next($request);

@@ -74,28 +74,7 @@
                                     <td>{{ $section->title ?? '—' }}</td>
                                     <td class="text-start">{{ Str::limit($section->description, 80) }}</td>
 
-                                    {{-- Media Column --}}
-                                    <!-- <td class="text-start">
-                                        @foreach($section->media as $media)
-                                        @if($media->media_type === 'image')
-                                        <img src="{{ asset($media->media_path) }}" class="img-thumbnail mb-1" style="height:50px;">
-                                        @elseif($media->media_type === 'video')
-                                        <video width="100" height="50" controls class="mb-1">
-                                            <source src="{{ asset($media->media_path) }}">
-                                        </video>
-                                        @elseif($media->media_type === 'youtube')
-                                        <a href="{{ $media->media_path }}" target="_blank" class="d-block text-truncate" style="max-width:150px;">
-                                            YouTube Link
-                                        </a>
-                                        @if($media->description)
-                                        <small class="text-muted d-block">{{ Str::limit($media->description, 30) }}</small>
-                                        @endif
-                                        @endif
-                                        @endforeach
-                                        @if($section->media->isEmpty())
-                                        <span class="text-muted">—</span>
-                                        @endif
-                                    </td> -->
+                                 
 
                                     <td>{{ $section->created_at ? $section->created_at->format('d M Y') : '—' }}</td>
 

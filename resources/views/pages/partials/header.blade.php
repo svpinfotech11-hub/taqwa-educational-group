@@ -64,11 +64,48 @@
         }
 
         .hero-content p {
+<<<<<<< HEAD
             font-size: 18px;
             line-height: 1.6;
             color: #fff !important;
         }
+=======
+    font-size: 18px;
+    line-height: 1.6;
+    color: #fff !important;
+}
+
+@media (max-width: 1500px) {
+    .tgmenu__navbar-wrap ul li a {
+        padding: 9px 7px !important;
+    }
+    
+}
+
+.logo p {
+    font-family: var(--tg-body-font-family);
+    font-size: 16px;
+    line-height: var(--tg-body-line-height);
+    font-weight: var(--tg-fw-regular);
+    color: var(--tg-body-color);
+    margin-bottom: 3px;
+}
+.logo a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media(max-width:768px){
+    .logo p {
+    font-size: 12px;
+}
+}
+
+>>>>>>> dfb1aa7420f4aef6de39b972e5312369b54cbe7d
     </style>
+    
+    
 
     <style>
         .media-marquee-area {
