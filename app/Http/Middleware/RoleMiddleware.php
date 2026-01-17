@@ -15,22 +15,15 @@ class RoleMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
    public function handle($request, Closure $next, ...$roles)
-{
-    $user = auth()->user();
+    {
+        $user = auth()->user();
 
-    if (!$user) {
-        return redirect()->route('auth.login');
+        if (!$user) {
+            return redirect()->route('auth.login');
+        }
+
+
+        return $next($request);
     }
-
-    if (!$user->role) {
-        abort(403, 'Unauthorized: No role assigned.');
-    }
-
-    if (!in_array(strtolower($user->role->name), array_map('strtolower', $roles))) {
-        abort(403, 'Unauthorized: You do not have access to this page.');
-    }
-
-    return $next($request);
-}
 
 }

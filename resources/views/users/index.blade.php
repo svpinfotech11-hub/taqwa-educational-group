@@ -84,15 +84,9 @@
 
                 </div>
 
-                <!-- /.card -->
             </div>
-
-            <!-- /.col -->
         </div>
-        <!--end::Row-->
     </div>
-    <!--end::Container-->
 </div>
-<!--end::App Content-->
 
 @endsection

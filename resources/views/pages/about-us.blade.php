@@ -18,6 +18,7 @@
                 </div>
             </div>
         </div>
+
         <div class="breadcrumb__shape-wrap">
             <img src="{{ asset('assets/img/others/breadcrumb_shape01.svg') }}" alt="img" class="alltuchtopdown">
             <img src="{{ asset('assets/img/others/breadcrumb_shape02.svg') }}" alt="img" data-aos="fade-right"
@@ -205,3 +206,21 @@
     </section>  --}}
     <!-- features-area-end -->
 @endsection
+
+    </div>
+</section>
+<!-- about-area-end -->
+
+<!-- brand-area -->
+
+<!-- brand-area-end -->
+
+<!-- features-area -->
+
+<!-- features-area-end -->
+
+
+
+
+@endsection
+

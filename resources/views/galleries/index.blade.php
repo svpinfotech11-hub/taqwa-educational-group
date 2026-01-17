@@ -40,7 +40,7 @@
                 <div class="mb-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="m-0"></h4>
-                        <a href="{{ route('galleries.create') }}" class="btn btn-info">+ Add School Details</a>
+                        <a href="{{ route('galleries.create') }}" class="btn btn-info">+ Add New</a>
                     </div>
 
                     {{-- Success Message --}}
