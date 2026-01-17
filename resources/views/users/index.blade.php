@@ -88,6 +88,7 @@
                     <!-- /.card -->
                 </div>
 
+
                 <!-- /.col -->
             </div>
             <!--end::Row-->
@@ -96,3 +97,11 @@
     </div>
     <!--end::App Content-->
 @endsection
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection
+
