@@ -337,34 +337,34 @@ p.text-dark.jhgfjhfj {
 
       <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script>
-$('#enquiryForm').on('submit', function(e) {
-    e.preventDefault();
+    <script>
+    $('#enquiryForm').on('submit', function(e) {
+        e.preventDefault();
 
-    $('.text-danger').text('');
+        $('.text-danger').text('');
 
-    $.ajax({
-        url: "{{ route('enquiry.store') }}",
-        type: "POST",
-        data: $(this).serialize(),
-        success: function(response) {
-            $('#enquiryForm')[0].reset();
-            $('#enquirySuccess').removeClass('d-none');
+        $.ajax({
+            url: "{{ route('enquiry.store') }}",
+            type: "POST",
+            data: $(this).serialize(),
+            success: function(response) {
+                $('#enquiryForm')[0].reset();
+                $('#enquirySuccess').removeClass('d-none');
 
-            setTimeout(function () {
-                $('#enquiryModal').modal('hide');
-                $('#enquirySuccess').addClass('d-none');
-            }, 2000);
-        },
-        error: function(xhr) {
-            let errors = xhr.responseJSON.errors;
-            $.each(errors, function(key, value) {
-                $('.error-' + key).text(value[0]);
-            });
-        }
+                setTimeout(function () {
+                    $('#enquiryModal').modal('hide');
+                    $('#enquirySuccess').addClass('d-none');
+                }, 2000);
+            },
+            error: function(xhr) {
+                let errors = xhr.responseJSON.errors;
+                $.each(errors, function(key, value) {
+                    $('.error-' + key).text(value[0]);
+                });
+            }
+        });
     });
-});
-</script>
+    </script>
 
   </header>
   <!-- header-area-end -->
