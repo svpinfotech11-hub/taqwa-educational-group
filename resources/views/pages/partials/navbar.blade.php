@@ -54,6 +54,10 @@
         padding: 9px 10px;
     }
 }
+
+p.text-dark.jhgfjhfj {
+    font-weight: 700;
+}
   </style>
 
   <!-- header-area -->
@@ -101,7 +105,7 @@
                                       @else
                                       <img src="{{ asset('images/Untitled design (1).png') }}" class="asdasd" alt="Default Logo">
                                       @endif
-                                      <p>Taqwa Institutional Group</p>
+                                      <p class="text-dark jhgfjhfj">Taqwa Institutional Group</p>
                                   </a>
                               </div>
 

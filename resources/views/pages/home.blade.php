@@ -120,6 +120,8 @@
     .text-center.test-des p {
     text-align: justify;
 }
+
+
 </style>
 <!-- banner-area -->
 <section class="hero-slider-area">

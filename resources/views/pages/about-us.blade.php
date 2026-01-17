@@ -69,117 +69,11 @@
 <!-- about-area-end -->
 
 <!-- brand-area -->
-<div class="brand-area">
-    <div class="container-fluid">
-        <div class="marquee_mode">
-            <div class="brand__item">
-                <a href="#"><img src="{{ asset('assets/img/brand/brand01.png') }}" alt="brand"></a>
-                <img src="{{ asset('assets/img/icons/brand_star.svg') }}" alt="star">
-            </div>
-            <div class="brand__item">
-                <a href="#"><img src="{{ asset('assets/img/brand/brand02.png') }}" alt="brand"></a>
-                <img src="{{ asset('assets/img/icons/brand_star.svg') }}" alt="star">
-            </div>
-            <div class="brand__item">
-                <a href="#"><img src="{{ asset('assets/img/brand/brand03.png') }}" alt="brand"></a>
-                <img src="{{ asset('assets/img/icons/brand_star.svg') }}" alt="star">
-            </div>
-            <div class="brand__item">
-                <a href="#"><img src="{{ asset('assets/img/brand/brand04.png') }}" alt="brand"></a>
-                <img src="{{ asset('assets/img/icons/brand_star.svg') }}" alt="star">
-            </div>
-            <div class="brand__item">
-                <a href="#"><img src="{{ asset('assets/img/brand/brand05.png') }}" alt="brand"></a>
-                <img src="{{ asset('assets/img/icons/brand_star.svg') }}" alt="star">
-            </div>
-            <div class="brand__item">
-                <a href="#"><img src="{{ asset('assets/img/brand/brand06.png') }}" alt="brand"></a>
-                <img src="{{ asset('assets/img/icons/brand_star.svg') }}" alt="star">
-            </div>
-            <div class="brand__item">
-                <a href="#"><img src="{{ asset('assets/img/brand/brand07.png') }}" alt="brand"></a>
-                <img src="{{ asset('assets/img/icons/brand_star.svg') }}" alt="star">
-            </div>
-            <div class="brand__item">
-                <a href="#"><img src="{{ asset('assets/img/brand/brand04.png') }}" alt="brand"></a>
-                <img src="{{ asset('assets/img/icons/brand_star.svg') }}" alt="star">
-            </div>
-            <div class="brand__item">
-                <a href="#"><img src="{{ asset('assets/img/brand/brand03.png') }}" alt="brand"></a>
-                <img src="{{ asset('assets/img/icons/brand_star.svg') }}" alt="star">
-            </div>
-        </div>
 
-    </div>
-</div>
 <!-- brand-area-end -->
 
 <!-- features-area -->
-<section class="features__area-three section-pt-120 section-pb-90">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-xl-5 col-lg-8">
-                <div class="section__title text-center mb-40">
-                    <span class="sub-title">What We Offer</span>
-                    <h2 class="title">Learn New Skills When And Where You Like</h2>
-                    <p>when known printer took a galley of type scrambl edmake</p>
-                </div>
-            </div>
-        </div>
-        <div class="features__item-wrap">
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-6">
-                    <div class="features__item-two">
-                        <div class="features__content-two">
-                            <div class="content-top">
-                                <div class="features__icon-two">
-                                    <img src="{{ asset('assets/img/icons/h2_features_icon01.svg') }}" alt="img" class="injectable">
-                                </div>
-                                <h2 class="title">Expert Tutors</h2>
-                            </div>
-                            <p>when an unknown printer took a galley offe type and scrambled makes.</p>
-                        </div>
-                        <div class="features__item-shape">
-                            <img src="{{ asset('assets/img/others/features_item_shape.svg') }}" alt="img" class="injectable">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="features__item-two">
-                        <div class="features__content-two">
-                            <div class="content-top">
-                                <div class="features__icon-two">
-                                    <img src="{{ asset('assets/img/icons/h2_features_icon02.svg') }}" alt="img" class="injectable">
-                                </div>
-                                <h2 class="title">Effective Courses</h2>
-                            </div>
-                            <p>when an unknown printer took a galley offe type and scrambled makes.</p>
-                        </div>
-                        <div class="features__item-shape">
-                            <img src="{{ asset('assets/img/others/features_item_shape.svg') }}" alt="img" class="injectable">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="features__item-two">
-                        <div class="features__content-two">
-                            <div class="content-top">
-                                <div class="features__icon-two">
-                                    <img src="{{ asset('assets/img/icons/h2_features_icon03.svg') }}" alt="img" class="injectable">
-                                </div>
-                                <h2 class="title">Earn Certificate</h2>
-                            </div>
-                            <p>when an unknown printer took a galley offe type and scrambled makes.</p>
-                        </div>
-                        <div class="features__item-shape">
-                            <img src="{{ asset('assets/img/others/features_item_shape.svg') }}" alt="img" class="injectable">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
 <!-- features-area-end -->
 
 
