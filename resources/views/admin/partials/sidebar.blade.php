@@ -580,7 +580,17 @@
                   @endif
                   {{-- ===== ROLE & PERMISSION (Only Super Admin) ===== --}}
 
-                  @if (strtolower(auth()->user()->role->name) === 'super admin')
+                  @php
+                      $permissions = auth()->user()->permissions;
+
+                      if (is_string($permissions)) {
+                          $permissions = json_decode($permissions, true);
+                      }
+
+                      $isSuperAdmin = is_array($permissions) && in_array('all', $permissions);
+                  @endphp
+
+                  @if ($isSuperAdmin)
                       <li class="nav-item">
                           <a href="#" class="nav-link">
                               <i class="nav-icon bi bi-shield-lock"></i>
@@ -591,8 +601,6 @@
                           </a>
 
                           <ul class="nav nav-treeview">
-
-                              {{-- ===== ROLE MANAGEMENT ===== --}}
 
                               <li class="nav-item">
                                   <a href="{{ route('roles.index') }}" class="nav-link">
@@ -611,6 +619,7 @@
                           </ul>
                       </li>
                   @endif
+
 
 
                   <!-- <li class="nav-item">

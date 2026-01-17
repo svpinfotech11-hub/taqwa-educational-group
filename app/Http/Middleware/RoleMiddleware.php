@@ -40,19 +40,23 @@ class RoleMiddleware
         }
 
         $user = Auth::user();
+        $permissions = $user->permissions;
 
-        // User ka role aur allowed_modules fetch karo
-        $role = $user->role; // assuming User model me role() relation define hai
+        if (empty($permissions)) {
+            $permissions = [];
+        } elseif (is_string($permissions)) {
+            $permissions = json_decode($permissions, true);
 
-        if (!$role) {
-            abort(403, 'Role not assigned');
+            if (!is_array($permissions)) {
+                $permissions = [];
+            }
         }
 
-        // allowed_modules ko JSON decode karo
-        $allowedModules = json_decode($role->allowed_modules, true);
-
-        // allowed_modules ko request me store karo (blade me use karne ke liye)
-        $request->merge(['allowed_modules' => $allowedModules]);
+        if (in_array('all', $permissions)) {
+            return $next($request);
+        }
+        
+        $request->merge(['allowed_modules' => $permissions]);
 
         return $next($request);
     }
